@@ -1,11 +1,13 @@
 from input import *
 from linear_algebra import *
+# from sys import argv
 import copy
 
 
 def print_vector(vector, word):
     for i in range(0, vector.row):
-        print(word + str(i + 1) + ' = ' + str(round((vector.get(i, 0)), 15)), end=' ')
+        print(word + str(i + 1) + ' =', end=' ')
+        print("%.15f" % vector.get(i, 0), end=' ')
     print()
 
 
@@ -14,7 +16,7 @@ def start():
     print('[cl] - получить матрицу с клавиатуры')
     print()
 
-    input_str = input().strip()
+    input_str = input('>>> ').strip()
     slae = None
     if input_str == 'file':
         slae = input_from_file()
@@ -31,13 +33,13 @@ def start():
     first_slae = copy.deepcopy(slae)
 
     slae_roots = solve_gauss(slae)
-    print('СЛАУ приведенная к ступенчатому (треугольному) виду:')
+    print('СЛАУ, приведенная к ступенчатому (треугольному) виду:')
     print(slae)
 
     print('Определитель матрицы:')
     print('Элементарные преобразования (диагональ):', det_triangular(slae.coefficients))
-    print('Разложение по первой строке:            ', det_minor(first_slae.coefficients))
-    print('Через встроенную функцию numpy:         ', det_numpy(first_slae.coefficients))
+    # print('Разложение по первой строке:            ', det_minor(first_slae.coefficients))
+    # print('Через встроенную функцию numpy:         ', det_numpy(first_slae.coefficients))
     print()
 
     if slae_roots is None:
