@@ -38,8 +38,8 @@ def start():
 
     print('Определитель матрицы:')
     print('Элементарные преобразования (диагональ):', det_triangular(slae.coefficients))
-    # print('Разложение по первой строке:            ', det_minor(first_slae.coefficients))
-    # print('Через встроенную функцию numpy:         ', det_numpy(first_slae.coefficients))
+    print('Разложение по первой строке:            ', det_minor(first_slae.coefficients))
+    print('Через встроенную функцию numpy:         ', det_numpy(first_slae.coefficients))
     print()
 
     if slae_roots is None:
