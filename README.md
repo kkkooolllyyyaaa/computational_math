@@ -1,4 +1,4 @@
-# computational_math
+# Сomputational Mathematics
 # [Решение системы линейных алгебраических уравнений СЛАУ](https://github.com/kkkooolllyyyaaa/computational_math/tree/master/comp-math-1)
 + Метод Гаусса
 
