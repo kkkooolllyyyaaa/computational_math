@@ -1,4 +1,4 @@
-from matrix import *
+from Matrix import *
 from slae import *
 
 n_m_error = 'Количество параметров в первой строке должно быть равно 1 или 2'

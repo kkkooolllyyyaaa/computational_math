@@ -1,4 +1,4 @@
-from matrix import *
+from Matrix import *
 from numpy import linalg
 
 zero_column_error = 'Если столбец нулевой или элементы линейно зависимы, то система не имеет смысла'
