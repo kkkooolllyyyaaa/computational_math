@@ -21,7 +21,7 @@ def read_file():
 
 def read_console():
     try:
-        n = int(input('Введите [n]: \n'))
+        n = int(input())
         data = {'x': [], 'y': []}
         for i in range(n):
             values = [float(i) for i in input().strip().split()]

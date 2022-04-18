@@ -20,4 +20,6 @@ class ExpApproximator(Approximator):
         a = pred_res['params'][1]
         S = sum([(data['y'][i] - b * exp(a * data['x'][i])) ** 2 for i in range(n)])
 
-        return {'params': [b, a], 'disp': S, 'func': lambda z: b * exp(a * z)}
+        legend = str(round(a, 3)) + ' e^(' + str(round(b, 3)) + ' * x)'
+
+        return {'params': [b, a], 'disp': S, 'func': lambda z: b * exp(a * z), 'legend': legend}

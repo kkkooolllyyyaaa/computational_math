@@ -40,4 +40,5 @@ class LinearApproximator(Approximator):
             S += (a * x + b - y) ** 2
 
         r = r / ((rdivx * rdivy) ** (1 / 2))
-        return {'params': [b, a], 'disp': S, 'func': lambda z: a * z + b, 'r': r}
+        legend = str(round(a, 3)) + 'x + ' + str(round(b, 3))
+        return {'params': [b, a], 'disp': S, 'func': lambda z: a * z + b, 'r': r, 'legend': legend}

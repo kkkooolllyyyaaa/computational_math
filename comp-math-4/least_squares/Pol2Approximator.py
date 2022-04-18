@@ -27,7 +27,6 @@ class Pol2Approximator(Approximator):
             [[n, sx, sx2],
              [sx, sx2, sx3],
              [sx2, sx3, sx4]])
-
         delta1 = np.linalg.det([
             [sy, sx, sx2],
             [sxy, sx2, sx3],
@@ -52,5 +51,6 @@ class Pol2Approximator(Approximator):
             (a2 * data['x'][i] ** 2 + a1 * data['x'][i] + a0 - data['y'][i]) ** 2
             for i in range(n)
         ])
+        legend = str(round(a2, 3)) + 'x^2 + ' + str(round(a1, 3)) + 'x + ' + str(round(a0, 3))
 
-        return {'params': [a0, a1, a2], 'disp': S, 'func': lambda z: a2 * z ** 2 + a1 * z + a0}
+        return {'params': [a0, a1, a2], 'disp': S, 'func': lambda z: a2 * z ** 2 + a1 * z + a0, 'legend': legend}

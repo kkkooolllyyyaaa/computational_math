@@ -63,4 +63,8 @@ class Pol3Approximator(Approximator):
         S = sum([(a3 * data['x'][i] ** 3 + a2 * data['x'][i] ** 2 + a1 * data['x'][i] + a0 - data['y'][i]) ** 2
                  for i in range(n)])
 
-        return {'params': [a0, a1, a2, a3], 'disp': S, 'func': lambda z: a3 * z ** 3 + a2 * z ** 2 + a1 * z + a0}
+        legend = str(round(a3, 3)) + 'x^3 +' + str(round(a2, 3)) + 'x^2 + ' + str(round(a1, 3)) + 'x + ' + str(
+            round(a0, 3))
+
+        return {'params': [a0, a1, a2, a3], 'disp': S, 'func': lambda z: a3 * z ** 3 + a2 * z ** 2 + a1 * z + a0,
+                'legend': legend}

@@ -112,8 +112,12 @@ for i in range(len(results)):
     if result is None:
         continue
     plot_y.append([result['func'](x) for x in plot_x])
-    labels.append(functions[i].f)
+    labels.append(result['legend'])
+    # labels.append(functions[i].f)
 plot(table['x'], table['y'], plot_x, plot_y, labels)
+plot(table['x'], table['y'], plot_x,
+     [[results[best_i]['func'](x) for x in plot_x]],
+     ['Наилучшая аппроксимация:\n' + results[best_i]['legend']])
 
 '-----------------------------------------------------------------------------'
 R = 0

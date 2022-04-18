@@ -20,4 +20,5 @@ class PowApproximator(Approximator):
         b = pred_res['params'][1]
         S = sum([(data['y'][i] - a * (data['x'][i]) ** b) ** 2 for i in range(n)])
 
-        return {'params': [b, a], 'disp': S, 'func': lambda z: a * (z ** b)}
+        legend = str(round(a, 3)) + ' * x^(' + str(round(b, 3)) + ')'
+        return {'params': [b, a], 'disp': S, 'func': lambda z: a * (z ** b), 'legend': legend}
