@@ -1,4 +1,5 @@
 import math
+from colorama import Fore, Style
 
 
 def build_interval(start, end, count):
@@ -17,6 +18,7 @@ class Statistics:
         self.digits = 3
         self.sturgess = 0
         self.interval_selection = []
+        self.interval_distribution_func = None
         self.empirical_distribution_func = None
         self.frequencies_polygon_values = []
 
@@ -59,17 +61,23 @@ class Statistics:
             if (i + 1) == len(self.selection):
                 self.interval_selection.append(build_interval(current - h, current, count))
 
-    def build_empirical_distribution_function(self):
-        self.empirical_distribution_func = lambda x: {
+    def build_interval_distribution_function(self):
+        self.interval_distribution_func = lambda x: {
             sum([j['count'] if j['interval']['start'] < x else 0
                  for j in self.interval_selection])
+        }
+
+    def build_empirical_distribution_function(self):
+        self.empirical_distribution_func = lambda x: {
+            sum(1 if j < x else 0
+                for j in self.selection) / self.n
         }
 
     def build_frequencies_polygon_values(self):
         for el in self.interval_selection:
             mid = (el['interval']['start'] + el['interval']['end']) / 2
             before = mid - self.sturgess
-            fx = self.empirical_distribution_func
+            fx = self.interval_distribution_func
             self.frequencies_polygon_values.append((mid, fx(mid).pop() - fx(before).pop()))
 
     def formatted(self, number):
@@ -106,42 +114,43 @@ class Statistics:
         self.calculate_expectation()
         self.calculate_standard_deviation()
         self.build_interval_sample()
+        self.build_interval_distribution_function()
         self.build_empirical_distribution_function()
         self.build_frequencies_polygon_values()
 
     def print_all(self):
-        print('Размер выборки:')
+        print(Fore.GREEN + 'Размер выборки:' + Style.RESET_ALL)
         print(self.n)
         print()
 
-        print('Вариационные ряд:')
+        print(Fore.GREEN + 'Вариационные ряд:' + Style.RESET_ALL)
         self.print_sample()
         print()
 
-        print('Первая порядковая статистика:')
+        print(Fore.GREEN + 'Первая порядковая статистика:' + Style.RESET_ALL)
         print(self.formatted(self.first_ordinal))
         print()
 
-        print(str(self.n) + '-ая порядковая статистика:')
+        print(Fore.GREEN + str(self.n) + '-ая порядковая статистика:' + Style.RESET_ALL)
         print(self.formatted(self.n_ordinal))
         print()
 
-        print('Размах:')
+        print(Fore.GREEN + 'Размах:' + Style.RESET_ALL)
         print(self.formatted(self.range))
         print()
 
-        print('Оценка математического ожидания:')
+        print(Fore.GREEN + 'Оценка математического ожидания:' + Style.RESET_ALL)
         print(self.formatted(self.expectation))
         print()
 
-        print('Оценка среднеквадратичного отклонения:')
+        print(Fore.GREEN + 'Оценка среднеквадратичного отклонения:' + Style.RESET_ALL)
         print(self.formatted(self.standard_deviation))
         print()
 
-        print('h по формуле Стерджесса:')
+        print(Fore.GREEN + 'h по формуле Стерджесса:' + Style.RESET_ALL)
         print(self.formatted(self.sturgess))
         print()
 
-        print('Интервальный статистический ряд:')
+        print(Fore.GREEN + 'Интервальный статистический ряд:' + Style.RESET_ALL)
         self.print_interval_sample()
         print()

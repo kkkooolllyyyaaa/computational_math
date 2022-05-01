@@ -8,14 +8,40 @@ class StatisticsPlot:
         self.left = statistics.first_ordinal - statistics.sturgess / 2
         self.right = statistics.n_ordinal + statistics.sturgess / 2
 
+    # def build_empirical_distribution(self):
+    #     x = np.linspace(self.left, self.right, self.statistics.n)
+    #     print(x)
+    #     fx = self.statistics.empiric_distribution_func
+    #
+    #     y = [fx(j).pop() for j in x]
+    #     plt.plot(x, y, color='black')
+    #
+    #     plt.xlabel('x')
+    #     plt.ylabel('count')
+    #     plt.xticks(np.arange(self.left, self.right, round(self.statistics.sturgess, 2)))
+    #     plt.show()
+
     def build_empirical_distribution(self):
-        x = np.linspace(self.left, self.right, self.statistics.n * 100)
+        data = self.statistics.selection
+        values = [data[0] - self.statistics.sturgess / 2] + data
+
         fx = self.statistics.empirical_distribution_func
-        y = [fx(j).pop() for j in x]
-        plt.plot(x, y, color='black')
+        left = values[0]
+        for i in range(len(values)):
+            right = values[i]
+            height = fx(right).pop()
+            plt.plot([left, right], [height, height], c='black')
+            plt.plot([left, left], [fx(left).pop(), fx(right).pop()],
+                     '--', color='black', linewidth=0.5)
+            left = right
+
+        plt.plot([left, left * 1.1], [1.0, 1.0], c='black')
+        plt.plot([left, left], [fx(left).pop(), fx(left * 1.1).pop()],
+                 '--', color='black', linewidth=0.5)
 
         plt.xlabel('x')
         plt.ylabel('count')
+        plt.yticks(np.arange(0, 1.1, 0.1))
         plt.xticks(np.arange(self.left, self.right, round(self.statistics.sturgess, 2)))
         plt.show()
 
@@ -27,7 +53,7 @@ class StatisticsPlot:
         plt.xlabel('x')
         plt.ylabel('ni')
         plt.plot(x, y, color='black', marker='o')
-        plt.xticks(np.arange(self.left, self.right, round(self.statistics.sturgess, 2) / 2))
+        plt.xticks(np.arange(self.left, self.right, round(self.statistics.sturgess, 2)))
         plt.show()
 
     def build_frequencies_hist(self):
