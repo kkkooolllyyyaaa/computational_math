@@ -12,6 +12,7 @@ class Statistics:
         self.n = len(selection)
         self.expectation = 0
         self.standard_deviation = 0
+        self.corrected_standard_deviation = 0
         self.range = 0
         self.first_ordinal = 0
         self.n_ordinal = 0
@@ -31,7 +32,9 @@ class Statistics:
     def calculate_standard_deviation(self):
         deviation = 0
         for element in self.selection:
-            deviation += (self.expectation - element) ** 2
+            deviation += (element - self.expectation) ** 2
+        deviation /= self.n
+        self.corrected_standard_deviation = math.sqrt(deviation * self.n / (self.n - 1))
         self.standard_deviation = math.sqrt(deviation)
 
     def calculate_range(self):
@@ -76,9 +79,10 @@ class Statistics:
     def build_frequencies_polygon_values(self):
         for el in self.interval_selection:
             mid = (el['interval']['start'] + el['interval']['end']) / 2
-            before = mid - self.sturgess
+            before = el['interval']['start']
+            after = el['interval']['end']
             fx = self.interval_distribution_func
-            self.frequencies_polygon_values.append((mid, fx(mid).pop() - fx(before).pop()))
+            self.frequencies_polygon_values.append((mid, fx(after).pop() - fx(before).pop()))
 
     def formatted(self, number):
         space = ''
@@ -107,6 +111,18 @@ class Statistics:
             interval_end = self.formatted(element['interval']['end'])
             interval_str = '[' + interval_start + '; ' + interval_end + ')'
             print(interval_str, '-', element['count'])
+
+    def print_raspr_sample(self):
+        n = len(self.interval_selection) - 1
+        values = [i['interval']['start'] for i in self.interval_selection]
+        values.append(self.interval_selection[n]['interval']['end'])
+        print(' 0.000 для x < ' + self.formatted(values[0]))
+        for i in range(len(values) - 1):
+            left = self.formatted(values[i])
+            right = self.formatted(values[i + 1])
+            fx = self.formatted(self.empirical_distribution_func(values[i + 1]).pop())
+            print(fx + ' для ' + left + ' <= x < ' + right)
+        print(' 1.000 для x > ' + self.formatted(values[n]))
 
     def calculate_all(self):
         self.calculate_ordinals()
@@ -139,12 +155,16 @@ class Statistics:
         print(self.formatted(self.range))
         print()
 
-        print(Fore.GREEN + 'Оценка математического ожидания:' + Style.RESET_ALL)
+        print(Fore.GREEN + 'Математическое ожидание:' + Style.RESET_ALL)
         print(self.formatted(self.expectation))
         print()
 
-        print(Fore.GREEN + 'Оценка среднеквадратичного отклонения:' + Style.RESET_ALL)
+        print(Fore.GREEN + 'Среднеквадратичное отклонение:' + Style.RESET_ALL)
         print(self.formatted(self.standard_deviation))
+        print()
+
+        print(Fore.GREEN + 'Исправленное среднеквадратичное отклонение:' + Style.RESET_ALL)
+        print(self.formatted(self.corrected_standard_deviation))
         print()
 
         print(Fore.GREEN + 'h по формуле Стерджесса:' + Style.RESET_ALL)
@@ -153,4 +173,8 @@ class Statistics:
 
         print(Fore.GREEN + 'Интервальный статистический ряд:' + Style.RESET_ALL)
         self.print_interval_sample()
+        print()
+
+        print(Fore.GREEN + 'Функция распределения:' + Style.RESET_ALL)
+        self.print_raspr_sample()
         print()

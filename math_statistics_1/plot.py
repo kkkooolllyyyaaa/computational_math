@@ -8,19 +8,6 @@ class StatisticsPlot:
         self.left = statistics.first_ordinal - statistics.sturgess / 2
         self.right = statistics.n_ordinal + statistics.sturgess / 2
 
-    # def build_empirical_distribution(self):
-    #     x = np.linspace(self.left, self.right, self.statistics.n)
-    #     print(x)
-    #     fx = self.statistics.empiric_distribution_func
-    #
-    #     y = [fx(j).pop() for j in x]
-    #     plt.plot(x, y, color='black')
-    #
-    #     plt.xlabel('x')
-    #     plt.ylabel('count')
-    #     plt.xticks(np.arange(self.left, self.right, round(self.statistics.sturgess, 2)))
-    #     plt.show()
-
     def build_empirical_distribution(self):
         data = self.statistics.selection
         values = [data[0] - self.statistics.sturgess / 2] + data
@@ -45,15 +32,22 @@ class StatisticsPlot:
         plt.xticks(np.arange(self.left, self.right, round(self.statistics.sturgess, 2)))
         plt.show()
 
-    def build_frequencies_polygon(self):
-        values = self.statistics.frequencies_polygon_values
-        x = [i[0] for i in values]
-        y = [i[1] for i in values]
+    def build_frequencies_pol(self):
+        intervals = self.statistics.interval_selection
+        bins_list = [i['interval']['start'] for i in intervals]
+        bins_list.append(intervals[len(intervals) - 1]['interval']['end'])
 
+        values = self.statistics.selection
+        n, bins = np.histogram(values, bins_list)
+        n = [float(i) for i in n]
+        plt.plot(bins[:-1], n, color='black', marker='o')
         plt.xlabel('x')
         plt.ylabel('ni')
-        plt.plot(x, y, color='black', marker='o')
-        plt.xticks(np.arange(self.left, self.right, round(self.statistics.sturgess, 2)))
+        xticks_pos = [i - self.statistics.sturgess / 2 for i in bins_list]
+        plt.xticks(xticks_pos, [str(round(i, 2)) for i in bins_list])
+
+        for i in range(len(bins_list) - 1):
+            plt.annotate(str(round(n[i], 3)), xy=(bins[i], n[i]), ha='center', va='bottom')
         plt.show()
 
     def build_frequencies_hist(self):
@@ -78,5 +72,5 @@ class StatisticsPlot:
 
     def build_graphs(self):
         self.build_empirical_distribution()
-        self.build_frequencies_polygon()
+        self.build_frequencies_pol()
         self.build_frequencies_hist()
