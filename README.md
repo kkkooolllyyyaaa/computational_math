@@ -2,7 +2,7 @@
 # [Решение СЛАУ](https://github.com/kkkooolllyyyaaa/computational_math/tree/master/comp-math-1)
 + Метод Гаусса
 
-#[Численное решение нелинейных уравнений и систем](https://github.com/kkkooolllyyyaaa/computational_math/tree/master/comp-math-1)
+# [Численное решение нелинейных уравнений и систем](https://github.com/kkkooolllyyyaaa/computational_math/tree/master/comp-math-1)
 + Метод простой итерации
 + Метод Ньютона
 + Метод простого шага
