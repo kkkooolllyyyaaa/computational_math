@@ -16,13 +16,18 @@ def system_newtons_method():
     eps = float(input('Введите точность eps: '))
     x, y = symbols("x y")
     x1, y1 = Symbol('x1'), Symbol('y1')
-    x0 = 1
-    y0 = 2
+    x0 = 10
+    y0 = 20
+    # Матрица якоби частных производных
     a = Matrix([f1, f2]).jacobian([x, y])
+    # Вектор столбец неизвестных
     b = Matrix([["x1"], ["y1"]])
+    # Составляю матрицу для решение СЛАУ
     M = a * b
     func1, func2 = f("1")
     iter = 0
+    print('Начальное приближение:')
+    print(x0, y0)
     while True:
         c = M.subs([(x, x0), (y, y0)])
         fu1 = func1(x0, y0)
@@ -33,7 +38,8 @@ def system_newtons_method():
         ans2 = ans[0][y1]
         x_1 = x0 + ans1
         y_1 = y0 + ans2
-        if abs(x_1 - x0) <= eps or abs(y_1 - y0) <= eps:
+        print(float(x_1), float(y_1))
+        if abs(x_1 - x0) <= eps:
             print('x', '\t\t\t\t y')
             print(float(x_1), float(y_1))
             break

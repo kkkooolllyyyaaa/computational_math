@@ -34,8 +34,6 @@ def data_console():
     data['eps'] = float(input('eps: '))
     if data['b'] <= data['a'] or data['f'] is None or data['eps'] <= 0:
         exit_msg(line_error)
-    if data['a'] * data['b'] > 0:
-        exit_msg(no_solve_error)
     return data
 
 

@@ -47,13 +47,12 @@ def newtons_method(a, b, f, eps):
 
 def get_x0_newton(a, b, f):
     # Выбор начального приближения
-    if f(a) * dx(a, f, n=2) >= 0:
+    if f(a) * dx(a, f, n=2) > 0:
+        print('Начальное приближение a')
         return a
-    elif f(b) * dx(b, f, n=2) >= 0:
-        return b
     else:
-        print('Не удалось добиться быстрой сходимости')
-        return (a + b) / 2
+        print('Начальное приближение b')
+        return b
 
 
 def print_newton(x_k, f_x_k, dfx_k, x_k_1, accuracy):
@@ -68,9 +67,9 @@ def simple_iteration_method(a, b, f, eps, max_iter=1000):
     cur = a
     max_dx = dx(cur, f)
     while cur < b:
-        max_dx = max(max_dx, dx(cur, f))
+        cur_dx = dx(cur, f)
+        max_dx = max(max_dx, cur_dx)
         cur += (b - a) / 10000
-
     lamb = -1 / max_dx
 
     def phi(x):
@@ -80,7 +79,7 @@ def simple_iteration_method(a, b, f, eps, max_iter=1000):
     x0 = a
     xi = phi(x0)
 
-    while abs(xi - x0) > eps and iters < max_iter:
+    while (abs(xi - x0) > eps or abs(f(xi)) > eps) and iters < max_iter:
         x0 = xi
         xi = phi(x0)
         iters += 1
@@ -102,4 +101,4 @@ def print_sim(answer):
 
 
 def number(x):
-    return round(x, 3)
+    return round(x, 5)
