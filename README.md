@@ -17,10 +17,14 @@
 + Метод наименьших квадратов
 
 # [Интерполяция](https://github.com/kkkooolllyyyaaa/computational_math/tree/master/comp-math-5)
-+ Таблично заданная функция
 + Интерполяция многочленом Лагранжа
 + Интерполяция многочленом Ньютона с конечными разностями
 + Графики узлов и интерполяционного многочлена
+
+# [Численное дифференцирование](https://github.com/kkkooolllyyyaaa/computational_math/tree/master/comp-math-6)
++ Задача Коши
++ Метод Эйлера
++ Метод Адамса
 
 # [Выборки и их характеристики](https://github.com/kkkooolllyyyaaa/computational_math/tree/master/math_statistics_1)
 + Эмпирическая функция распределения и её график
