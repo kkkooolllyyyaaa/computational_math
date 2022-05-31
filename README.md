@@ -2,6 +2,12 @@
 # [Решение СЛАУ](https://github.com/kkkooolllyyyaaa/computational_math/tree/master/comp-math-1)
 + Метод Гаусса
 
+# [Численное решение нелинейных уравнений и систем](https://github.com/kkkooolllyyyaaa/computational_math/tree/master/comp-math-1)
++ Метод простой итерации
++ Метод Ньютона
++ Метод простого шага
++ Метод Ньютона для решения систем
+
 # [Численное интегрирование](https://github.com/kkkooolllyyyaaa/computational_math/tree/master/comp-math-3)
 + Метод Прямоугольнкиов (левых, средних, правых)
 + Метод Симпсона
